@@ -1,7 +1,7 @@
 var pixiLib = require('pixi-lib')
 var config = require('./config')()
 var droolBuild = require('../drool');
-
+var speed = require('../../dynamic').loversSpeed
 var loverBuilder = function(type ,cb) {
     var cf = config[type]
     var arg = {
@@ -17,7 +17,7 @@ var loverBuilder = function(type ,cb) {
     lovers.shootDistance = 210 + 150 * Math.random()
     lovers.direction = pixiLib.makeIdentity(cf.direction)
     lovers.speed = 10
-    //lovers.speed = 10 + stage.lg * 0.1
+    lovers.speed = 10 + speed * 0.1
     lovers.dscale = 0.5 * lovers.speed / 5000
     lovers.move = function(dt) {
         this.scale.x += lovers.dscale
@@ -51,4 +51,20 @@ var loverBuilder = function(type ,cb) {
     return lovers
 }
 
-module.exports = loverBuilder
+var generateLovers = function(stage, type) {
+    var lovers = loverBuilder(type)
+    stage.loversArr.push(lovers)
+    stage.addChild(lovers);
+}
+
+var randomTypes = [[0], [1], [2], [0, 2], [0, 1], [1, 2], [0, 1, 2]]
+
+var randomLovers = function (random, stage){
+  var array = randomTypes[random]
+  for (var i in array) {
+    var type = array[i]
+    generateLovers(stage, type)
+  }
+}
+
+module.exports = randomLovers

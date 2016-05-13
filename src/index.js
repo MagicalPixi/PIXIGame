@@ -1,6 +1,9 @@
 /**
  * Created by zyg on 15/11/6.
  */
+function guoshencheng(argument) {
+  
+}
 var params = require('./params.js')
 var pixiLib = require('pixi-lib')
 var render = pixiLib.createRender(document.body)

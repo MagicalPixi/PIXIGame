@@ -1,14 +1,5 @@
 {"frames": {
 
-"hand3.png":
-{
-	"frame": {"x":2,"y":2,"w":233,"h":233},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":233,"h":233},
-	"sourceSize": {"w":233,"h":233},
-	"pivot": {"x":0,"y":1}
-},
 "hand1.png":
 {
 	"frame": {"x":2,"y":2,"w":233,"h":233},
@@ -21,6 +12,15 @@
 "hand2.png":
 {
 	"frame": {"x":237,"y":2,"w":233,"h":233},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":233,"h":233},
+	"sourceSize": {"w":233,"h":233},
+	"pivot": {"x":0,"y":1}
+},
+"hand3.png":
+{
+	"frame": {"x":2,"y":2,"w":233,"h":233},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":233,"h":233},

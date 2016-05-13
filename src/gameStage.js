@@ -1,72 +1,60 @@
 var pixiLib = require('pixi-lib')
-
+var dynamic = require('./dynamic')
 module.exports = function(render) {
-  var generateLovers = function(stage, count) {
-    var lovers = require('./sprites/lovers')(count)
-    stage.loversArr.push(lovers)
-    stage.addChild(lovers);
-  }
-  var randomLovers = {
-    0: function(stage) {
-        generateLovers(stage, 0)
-    },
-    1: function(stage) {
-        generateLovers(stage, 1)
-    },
-    2: function(stage) {
-        generateLovers(stage, 2)
-    },
-    3: function(stage) {
-        generateLovers(stage, 0)
-        generateLovers(stage, 2)
-    },
-    4: function(stage) {
-        generateLovers(stage, 0)
-        generateLovers(stage, 1)
-    },
-    5: function(stage) {
-        generateLovers(stage, 1)
-        generateLovers(stage, 2)
-    },
-    6: function(stage) {
-        generateLovers(stage, 0)
-        generateLovers(stage, 1)
-        generateLovers(stage, 2)
-    }
-}
+  dynamic.reset()
+  var loversSpeed = require('./dynamic').loversSpeed
+  var randomLovers = require('./sprites/lovers')
   var stage = new PIXI.Container() 
-  stage.isEnd = false
   stage.interactive = true
   stage.loversArr = []
   stage.timer = 0
-  stage.lg = 0 //lover group count
-  this.visible = true
-  this.burnCount = 0
-  this.progress = 0
+  stage.visible = true
+  stage.burnCount = 0
+  stage.progress = 0
   var background = require('./sprites/background')
   var fff = require('./sprites/fff')
   fff.play()
   var hands = require('./sprites/hands')
+  var torch = require('./sprites/torch')
+  torch.play()
   stage.addChild(background)
+  stage.addChild(torch)
   stage.addChild(fff)
   stage.addChild(hands)
+  var flyingtorchbuild = require('./sprites/flyingfire')
+  stage.interactive = true
+  stage.on('touchstart', function(e) {
+    var x = e.data.global.x;
+    var y = e.data.global.y;
+    hands.gotoAndPlay(0);
+    torch.rf = 2
+    var flyingtorch = flyingtorchbuild({
+        tarx: x,
+        tary: y,
+        arrived: function (torch) {
+        //checkshoot(torch.x, torch.y)
+        //var landfire = landfirebuilder()
+        //landfire.x = torch.x
+        //landfire.y = torch.y + torch.height / 3
+        //landfire.scale.x = torch.scale.x + 0.1
+        //landfire.scale.y = torch.scale.y + 0.1
+        //stage.addchild(landfire)
+       }
+    });
+    stage.addChild(flyingtorch);
+  })
   stage.render = function() {
-    if(this.isEnd) {
-        return
-    }
     if(stage.timer % 120 === 0) {
         var r = parseInt(Math.random() * 7)
-        randomLovers[r](stage)
-        stage.lg ++
+        loversSpeed ++
+        randomLovers(r, stage)
     }
     stage.timer ++
-    stage.children.forEach((function(child){
+    stage.children.forEach(function(child){
         if(child.render){
             child.render();
         }
-    }));
-}
-
+    });
+  }
   render(stage)
-  
 }
