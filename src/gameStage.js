@@ -1,5 +1,6 @@
 var pixiLib = require('pixi-lib')
 var dynamic = require('./dynamic')
+var landFireBuilder = require('./sprites/landFire')
 module.exports = function(render) {
   dynamic.reset()
   var loversSpeed = require('./dynamic').loversSpeed
@@ -32,13 +33,13 @@ module.exports = function(render) {
         tarx: x,
         tary: y,
         arrived: function (torch) {
-        //checkshoot(torch.x, torch.y)
-        //var landfire = landfirebuilder()
-        //landfire.x = torch.x
-        //landfire.y = torch.y + torch.height / 3
-        //landfire.scale.x = torch.scale.x + 0.1
-        //landfire.scale.y = torch.scale.y + 0.1
-        //stage.addchild(landfire)
+          checkShoot(torch.x, torch.y)
+        var landfire = landFireBuilder()
+        landfire.x = torch.x
+        landfire.y = torch.y + torch.height / 3
+        landfire.scale.x = torch.scale.x + 0.1
+        landfire.scale.y = torch.scale.y + 0.1
+        stage.addChild(landfire)
        }
     });
     stage.addChild(flyingtorch);
@@ -55,6 +56,19 @@ module.exports = function(render) {
             child.render();
         }
     });
+  }
+  var checkShoot = function(x, y) {
+    var i = 0
+    while (i < stage.loversArr.length) {
+      var lovers = stage.loversArr[i];
+      if (Math.abs(lovers.x - x) < 40 && Math.abs(lovers.y - y) < 40) {
+        stage.loversArr.splice(i, 1);
+        stage.removeChild(stage.lovers)
+        stage.burnCount ++
+      } else {
+        i++;
+      }
+    }
   }
   render(stage)
 }
