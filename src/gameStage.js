@@ -5,7 +5,9 @@ module.exports = function(render) {
   dynamic.reset()
   var loversSpeed = require('./dynamic').loversSpeed
   var randomLovers = require('./sprites/lovers')
+  var endProgress = require('./sprites/endProgress')
   var stage = new PIXI.Container() 
+  require('./dynamic').currentStage = stage
   stage.interactive = true
   stage.loversArr = []
   stage.timer = 0
@@ -22,6 +24,7 @@ module.exports = function(render) {
   stage.addChild(torch)
   stage.addChild(fff)
   stage.addChild(hands)
+  stage.addChild(endProgress)
   var flyingtorchbuild = require('./sprites/flyingfire')
   stage.interactive = true
   stage.on('touchstart', function(e) {
@@ -33,7 +36,7 @@ module.exports = function(render) {
         tarx: x,
         tary: y,
         arrived: function (torch) {
-          checkShoot(torch.x, torch.y)
+        checkShoot(torch.x, torch.y)
         var landfire = landFireBuilder()
         landfire.x = torch.x
         landfire.y = torch.y + torch.height / 3
@@ -63,7 +66,7 @@ module.exports = function(render) {
       var lovers = stage.loversArr[i];
       if (Math.abs(lovers.x - x) < 40 && Math.abs(lovers.y - y) < 40) {
         stage.loversArr.splice(i, 1);
-        stage.removeChild(stage.lovers)
+        stage.removeChild(lovers)
         stage.burnCount ++
       } else {
         i++;

@@ -36,8 +36,9 @@ var droolBuild = function(config){
                 endProgress.progress ++
                 endProgress.gotoAndStop(endProgress.progress)
                 if(endProgress.progress == 10) {
-                  endProgress.progress = 0
-                  //end
+                  endProgress.gotoAndStop(endProgress.progress)
+                  var stage = require('../../dynamic').currentStage
+                  window.endPage(stage.currentStage)
                 }
             }
             this.keeyTimes--;

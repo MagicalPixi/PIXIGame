@@ -1,6 +1,5 @@
 var pixiLib = require('pixi-lib')
 var arg = {
-  maxFrame: 11,
   textures: pixiLib.getTextures('endProgress'),
   'position.set': [200, 990],
   'anchor.set': [0, 1],

@@ -12,13 +12,17 @@ var loader = require('./loader.js')
 loader.add(params.png, 'png').add(params.json, 'json').load(function() {
   var gameStage = require('./gameStage.js')
   var startStage = require('./startStage')
+  var endStage = require('./endStage')
   window.startPage = function() {
     startStage(render)
   }
   window.gamePage= function() {
     gameStage(render) 
   }
-  gameStage(render)
+  window.endPage = function(burnCount) {
+    endStage(render, burnCount)
+  }
+  startStage(render)
 })
 
 //document.body.appendChild(renderer.view);

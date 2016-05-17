@@ -5,6 +5,7 @@
 var pixiLib = require('pixi-lib')
 module.exports = function(render) {
   var stage = new PIXI.Container()
+  require('./dynamic').currentStage = stage
   var startBackground = require('./sprites/startBackground')
   var fffStart = require('./sprites/fffStart')
   var fires = require('./sprites/fires')
