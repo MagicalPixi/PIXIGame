@@ -1,7 +1,13 @@
 var png = []
 var json = []
+var color = {
+  blue:0x415C71,
+  red:0xF06050,
+  yellow: 0xF7CD1F
+}
 
 module.exports = {
   png: png,
-  json: json
+  json: json,
+  color: color
 }
