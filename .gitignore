@@ -17,6 +17,5 @@ lib-cov
 coverage
 .grunt
 node_modules
-stylesheets
 .sass-cache
 
