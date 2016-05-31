@@ -4,6 +4,7 @@ var generator = function(color, postion, ontouch) {
    var graphics = new PIXI.Graphics()
    graphics.over = function () {
      this.make(param.color.red)
+     this.hasShow = true
    }
    graphics.on('touchstart', ontouch)
    graphics.interactive = true
@@ -22,8 +23,10 @@ var generator = function(color, postion, ontouch) {
     this.make(param.color.yellow)
     this.removeChildren()
     this.addChild(text)
+    this.hasShow = true
    }
    graphics.make(color)
+   graphics.hasShow = false
    return graphics          
  }
  module.exports = generator 

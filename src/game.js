@@ -11,6 +11,7 @@ var clearGame = function() {
 var initGame = function() {
   initMineArray()
   initBlocks()
+  console.log(stage.blocks)
 }
 
 var initMineArray = function () {
@@ -40,7 +41,6 @@ var onClickBlock = function() {
   if (checkMine(indexPath)) {
     this.over()
   } else {
-    indexPath.deep = 0
     showBlock(indexPath)
   }
 }
@@ -49,11 +49,11 @@ var showBlock = function(indexPath) {
   if (!checkMine(indexPath)) {
     var block = stage.blocks[indexPath.x][indexPath.y]
     var count = caculateMine(indexPath)
+    if (block.hasShow) return
     if (count === 0) {
       if (block && block.showText) {
         block.showText('')
       }
-      if (indexPath.deep >= 2) return
       showOtherBlock(indexPath)
     } else {
       block.showText(count + '')
@@ -69,8 +69,7 @@ var showOtherBlock = function(mine) {
     var a = array[index]
     var currentMine = {x: mine.x + a.x,
                        y: mine.y + a.y}
-    if(currentMine.x >= 0 && currentMine.y >= 0) {
-      currentMine.deep = mine.deep + 1
+    if(currentMine.x >= 0 && currentMine.y >= 0 && currentMine.x < 9 && currentMine.y < 9) {
       showBlock(currentMine)
     }
   }
