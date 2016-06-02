@@ -11,28 +11,22 @@ var renderer = PIXI.autoDetectRenderer(640, aspect * 640, {
   transparent:true
 });
 
-var game = require('./game')
-game.resetGame()
-
-var stage = new PIXI.Container() 
-game.y = 100
-stage.addChild(game)
-var graphics = new PIXI.Graphics()
-graphics.beginFill(params.color.red)
-graphics.drawRect(170, 800, 300, 80, 20)
-graphics.endFill()
-graphics.interactive = true
-graphics.on('touchstart', function() {
+loader.add('reset', 'png').load(function() {
+  var game = require('./game')
   game.resetGame()
+  var stage = new PIXI.Container() 
+  game.y = 100
+  stage.addChild(game)
+  var reset = require('./sprites/reset')(function() {
+    game.resetGame()
+  })
+  stage.addChild(reset)
+  animate()
+  function animate() {
+    renderer.render(stage)
+    requestAnimationFrame(animate)
+  }
 })
-stage.addChild(graphics)
-
-animate();
-
-function animate() {
-    renderer.render(stage);
-    requestAnimationFrame(animate);
-}
 
 window.onresize = function() {
   resetSize()
