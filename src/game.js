@@ -105,8 +105,8 @@ var checkMine = function(mine) {
 
 var initMine = function() {
   return {
-    x: parseInt(Math.random() * 10),
-    y: parseInt(Math.random() * 10)
+    x: parseInt(Math.random() * 9),
+    y: parseInt(Math.random() * 9)
   }
 }
 
