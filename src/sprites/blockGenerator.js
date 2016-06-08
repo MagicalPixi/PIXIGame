@@ -21,11 +21,11 @@ var generator = function(color, postion, ontouch) {
   container.graphics = graphics
   container.over = function () {
      this.graphics.make(param.color.red)
-     this.showtimer = 0
   }
   container.on('touchstart', ontouch)
   container.interactive = true
   container.showText = function(string) {
+    this.isMine = false
     this.graphics.alpha = 0
     this.text.text = string
     container.showtimer = 500
@@ -35,8 +35,14 @@ var generator = function(color, postion, ontouch) {
   container.render = function () {
     if (this.showtimer <= 0) {
       this.graphics.alpha = 1
+      this.graphics.make(param.color.blue)
+      if (this.isMine) {
+        param.mineCount --
+      }
     } else {
-      this.graphics.alpha = 0
+      if (!this.isMine) {
+        this.graphics.alpha = 0
+      }
       this.showtimer --
     }
   }

@@ -19,10 +19,16 @@ loader.add(params.png, 'png').load(function() {
     game.resetGame()
     game.removeMask()
   })
+  var life = require('./sprites/life')
+  stage.addChild(life)
   var mask = require('./sprites/mask')
   mask.visible = false
   stage.overMask = mask
+  var success = require('./sprites/success')
+  success.visible = false
+  stage.successMask = success
   stage.addChild(mask)
+  stage.addChild(success)
   stage.addChild(reset)
   var start = require('./sprites/start')
   stage.addChild(start)

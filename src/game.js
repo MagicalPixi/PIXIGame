@@ -1,16 +1,19 @@
 var generator = require('./sprites/blockGenerator.js')
 var params = require('./params')
 var stage = new PIXI.Container()
-
+var life = require('./sprites/life')
 var clearGame = function() {
   stage.removeChildren()
   stage.mines = []
   stage.blocks = []
+  params.mineCount = 0
+  life.setLifeCount(12)
 }
 
 var initGame = function() {
   initMineArray()
   initBlocks()
+  console.log(stage.mines)
 }
 
 var initMineArray = function () {
@@ -38,9 +41,21 @@ var initBlocks = function() {
 var onClickBlock = function() {
   var indexPath = this.indexPath
   if (checkMine(indexPath)) {
-    this.over()
-    stage.over()
+    this.isMine = true
+    if (this.showtimer === 0) {
+      params.mineCount ++
+      life.setLifeCount(life.lifeCount - 1)
+      if (life.lifeCount === 0) {
+        stage.over()
+      }
+      if (this.mineCount >= 10) {
+        stage.success()
+      }
+      this.showtimer = 500
+      this.over()
+    }
   } else {
+    this.isMine = false
     showBlock(indexPath)
   }
 }
@@ -120,9 +135,10 @@ var postion = function(i, j) {
 stage.resetGame = function() {
   clearGame()
   initGame()
+  stage.render = render
 }
 
-stage.render = function() {
+var render = function() {
   stage.children.map(function(child) {
     if(child.render) {
       child.render()
@@ -132,6 +148,8 @@ stage.render = function() {
 
 stage.over = function () {
   this.addMask()
+  document.title = '非常熟悉的扫雷游戏，真的'
+  stage.render = undefined
 }
 
 stage.addMask = function() {
@@ -140,6 +158,12 @@ stage.addMask = function() {
 
 stage.removeMask = function() {
   stage.parent.overMask.visible = false
+  stage.parent.success.visible = false
+}
+
+stage.success = function() {
+  stage.parent.success.visible = true
+  document.title = '我是扫雷小王子!不服你也扫个给我看看'
 }
 
 module.exports = stage

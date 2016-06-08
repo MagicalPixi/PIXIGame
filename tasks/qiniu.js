@@ -1,6 +1,7 @@
 var path = require('path');
 var qnUpload = require('gulp-qiniu');
 var src = path.resolve(__dirname,'../src/resource/*/*.*');
+var optionDir = 'mine'
 module.exports = function(gulp){
   gulp.task('qiniu',function(){
     gulp.src(src).pipe(qnUpload({
@@ -9,6 +10,7 @@ module.exports = function(gulp){
       bucket: "pixigame",
       private: false
     },{
+      dir: optionDir,
       versionFile: './cdn.json'
     }))
   });
