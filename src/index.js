@@ -24,6 +24,8 @@ loader.add(params.png, 'png').load(function() {
   stage.overMask = mask
   stage.addChild(mask)
   stage.addChild(reset)
+  var start = require('./sprites/start')
+  stage.addChild(start)
   stage.render = function() {
     stage.children.map(function(child) {
       if(child.render) {
