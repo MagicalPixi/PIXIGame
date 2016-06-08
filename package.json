@@ -25,7 +25,7 @@
   "dependencies": {
     "ejs": "^2.4.1",
     "pixi-lib": "^1.12.18"
-  }
+  },
   "pixiGame": {
     "default-share-text": "这是你们熟悉的扫雷，快来体验",
     "game-title": "熟悉的扫雷",
