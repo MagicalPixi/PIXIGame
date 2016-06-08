@@ -14,7 +14,8 @@
     "tests"
   ],
   "dependencies": {
-    "pixi": "~3.0.9"
+    "pixi": "~3.0.9",
+    "tween.js": "tweenjs#^16.3.4"
   },
   "license": "ISC",
   "moduleType": [],

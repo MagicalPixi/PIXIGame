@@ -1,4 +1,4 @@
-var png = []
+var png = ['reset', 'mask']
 var json = []
 var color = {
   blue:0x415C71,

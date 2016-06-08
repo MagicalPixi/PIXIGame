@@ -11,7 +11,6 @@ var clearGame = function() {
 var initGame = function() {
   initMineArray()
   initBlocks()
-  console.log(stage.blocks)
 }
 
 var initMineArray = function () {
@@ -40,6 +39,7 @@ var onClickBlock = function() {
   var indexPath = this.indexPath
   if (checkMine(indexPath)) {
     this.over()
+    stage.over()
   } else {
     showBlock(indexPath)
   }
@@ -49,7 +49,7 @@ var showBlock = function(indexPath) {
   if (!checkMine(indexPath)) {
     var block = stage.blocks[indexPath.x][indexPath.y]
     var count = caculateMine(indexPath)
-    if (block.hasShow) return
+    if (block.showtimer !== 0) return
     if (count === 0) {
       if (block && block.showText) {
         block.showText('')
@@ -120,7 +120,26 @@ var postion = function(i, j) {
 stage.resetGame = function() {
   clearGame()
   initGame()
-  console.log(stage.mines)
+}
+
+stage.render = function() {
+  stage.children.map(function(child) {
+    if(child.render) {
+      child.render()
+    }
+  })
+}
+
+stage.over = function () {
+  this.addMask()
+}
+
+stage.addMask = function() {
+  stage.parent.overMask.visible = true
+}
+
+stage.removeMask = function() {
+  stage.parent.overMask.visible = false
 }
 
 module.exports = stage

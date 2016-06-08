@@ -1,32 +1,46 @@
 var param = require('../params')
 var generator = function(color, postion, ontouch) {
   ontouch = ontouch || function() {}
-   var graphics = new PIXI.Graphics()
-   graphics.over = function () {
-     this.make(param.color.red)
-     this.hasShow = true
-   }
-   graphics.on('touchstart', ontouch)
-   graphics.interactive = true
-   graphics.make = function(color) {
+  var container = new PIXI.Container()
+  container.x = postion.x
+  container.y = postion.y
+  var graphics = new PIXI.Graphics()
+  graphics.make = function(color) {
     this.clear()
     this.beginFill(color, 1)
-    this.drawRect(postion.x, postion.y, 60, 60, 0)
+    this.drawRect(0, 0, 60, 60, 0)
     this.endFill()
-   }
-   graphics.showText = function(string) {
-    var text = new PIXI.Text(string, {font: '50px Arial', fill:param.color.blue, align: 'center'});
-    text.anchor.x = 0.5
-    text.anchor.y = 0.5
-    text.x = postion.x + 30
-    text.y = postion.y + 30
-    this.make(param.color.yellow)
-    this.removeChildren()
-    this.addChild(text)
-    this.hasShow = true
-   }
-   graphics.make(color)
-   graphics.hasShow = false
-   return graphics          
- }
- module.exports = generator 
+  }
+  var text = new PIXI.Text('',{font : '38px Arial', fill :param.color.blue, align : 'center'})
+  text.anchor.set(0.5, 0.5)
+  text.x = 30
+  text.y = 30
+  container.addChild(text)
+  container.text = text
+  container.addChild(graphics)
+  container.graphics = graphics
+  container.over = function () {
+     this.graphics.make(param.color.red)
+     this.showtimer = 0
+  }
+  container.on('touchstart', ontouch)
+  container.interactive = true
+  container.showText = function(string) {
+    this.graphics.alpha = 0
+    this.text.text = string
+    container.showtimer = 500
+  }
+  graphics.make(color)
+  container.showtimer = 0
+  container.render = function () {
+    if (this.showtimer <= 0) {
+      this.graphics.alpha = 1
+    } else {
+      this.graphics.alpha = 0
+      this.showtimer --
+    }
+  }
+  return container
+}
+
+module.exports = generator 
