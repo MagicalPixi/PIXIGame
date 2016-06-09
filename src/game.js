@@ -48,7 +48,7 @@ var onClickBlock = function() {
       if (life.lifeCount === 0) {
         stage.over()
       }
-      if (this.mineCount >= 10) {
+      if (params.mineCount >= 10) {
         stage.success()
       }
       this.showtimer = 500
@@ -158,11 +158,11 @@ stage.addMask = function() {
 
 stage.removeMask = function() {
   stage.parent.overMask.visible = false
-  stage.parent.success.visible = false
+  stage.parent.successMask.visible = false
 }
 
 stage.success = function() {
-  stage.parent.success.visible = true
+  stage.parent.successMask.visible = true
   document.title = '我是扫雷小王子!不服你也扫个给我看看'
 }
 
