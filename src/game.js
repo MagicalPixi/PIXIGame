@@ -13,7 +13,6 @@ var clearGame = function() {
 var initGame = function() {
   initMineArray()
   initBlocks()
-  console.log(stage.mines)
 }
 
 var initMineArray = function () {
@@ -164,6 +163,7 @@ stage.removeMask = function() {
 stage.success = function() {
   stage.parent.successMask.visible = true
   document.title = '我是扫雷小王子!不服你也扫个给我看看'
+  stage.render = undefined
 }
 
 module.exports = stage
