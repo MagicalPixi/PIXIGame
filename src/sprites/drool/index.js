@@ -35,10 +35,10 @@ var droolBuild = function(config){
             if(this.keeyTimes == 60) {
                 endProgress.progress ++
                 endProgress.gotoAndStop(endProgress.progress)
-                if(endProgress.progress == 10) {
-                  endProgress.gotoAndStop(endProgress.progress)
+                if(endProgress.progress >= 10) {
+                  endProgress.gotoAndStop(10)
                   var stage = require('../../dynamic').currentStage
-                  window.endPage(stage.currentStage)
+                  window.endPage(stage.burnCount)
                 }
             }
             this.keeyTimes--;

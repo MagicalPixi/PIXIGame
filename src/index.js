@@ -2,7 +2,7 @@
  * Created by zyg on 15/11/6.
  */
 function guoshencheng(argument) {
-  
+
 }
 var params = require('./params.js')
 var pixiLib = require('pixi-lib')
@@ -17,7 +17,7 @@ loader.add(params.png, 'png').add(params.json, 'json').load(function() {
     startStage(render)
   }
   window.gamePage= function() {
-    gameStage(render) 
+    gameStage(render)
   }
   window.endPage = function(burnCount) {
     endStage(render, burnCount)
@@ -28,4 +28,3 @@ loader.add(params.png, 'png').add(params.json, 'json').load(function() {
 //document.body.appendChild(renderer.view);
 //var audio = document.getElementById('audio')
 //audio.loop = true
-

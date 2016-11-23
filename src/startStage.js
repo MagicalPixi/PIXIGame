@@ -11,7 +11,7 @@ module.exports = function(render) {
   var fires = require('./sprites/fires')
   var startButton = require('./sprites/startButton')
   startButton.on('touchstart', function() {
-    
+    gamePage()
   })
   fires.play()
   fffStart.play()
